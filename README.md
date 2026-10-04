@@ -1,54 +1,128 @@
+<div align="center">
+
 # ARCHNEMESIS · MangoWC
 
-Familiar Hyprland controls. Mango’s native compositor, tags, and layouts.
+**Hyprland controls. Mango compositor.**
 
-A compact personal MangoWC configuration with Rose Pine inspired purple and pink accents, rounded borders, a dark desktop, and the ARCHNEMESIS application workflows.
+![MangoWC](https://img.shields.io/badge/MangoWC-0.17.5-c4a7e7?style=flat-square&labelColor=191724)
+![Waybar](https://img.shields.io/badge/Waybar-0.15.0-9ccfd8?style=flat-square&labelColor=191724)
+![Palette](https://img.shields.io/badge/Palette-Ros%C3%A9_Pine-eb6f92?style=flat-square&labelColor=191724)
+![Installer](https://img.shields.io/badge/Installer-Bash-a6da95?style=flat-square&labelColor=191724)
 
-![ARCHNEMESIS desktop running MangoWC](screenshots/desktop.png)
+Compact gaps · Rounded borders · Seven native layouts · Familiar shortcuts
 
-## The desktop
+</div>
 
-- **Seven native layouts**, cycled with **Super + L**: Tile → Scroller → Center Tile → Grid → Deck → Monocle → Vertical Scroller → Tile.
-- **Five tags always visible** in Waybar. Tags 6–10 appear when occupied or active.
-- **Full layout names** in the bar. Click the name to cycle; right-click for overview.
-- **Compact geometry**: 4 px inner gaps, 8 px outer gaps, 2 px borders, 10 px corners.
-- **Bundled Rofi workflows** for applications, clipboard, wallpapers, and power actions.
-- **SwayNC notifications**, PipeWire volume, playerctl media controls, and brightnessctl brightness.
-- Mango experiments live under **Super + Ctrl + Alt**, away from everyday shortcuts.
+---
 
-![Top bar with five tags, full layout name, and power button](screenshots/top-bar.png)
+## Install
 
-These are actual captures of the running desktop. The desktop screenshot uses an empty Center Tile tag to show the wallpaper and bar without exposing open applications. The default wallpaper is included under `wallpapers/`.
+Have **MangoWC, Bash, Python 3, Git, and curl** installed, then run as your desktop user:
 
-## Structure
-
-```text
-.
-├── install.sh
-├── config.conf
-├── config/                 # Eight compositor modules
-├── scripts/                # Launcher, clipboard, screenshot, lock, bar helpers
-├── themes/
-│   ├── rofi/               # Launcher, wallpaper, power menu
-│   ├── hyprlock.conf
-│   ├── waybar.css
-│   └── swaync/             # Notification configuration and stylesheet
-├── wallpapers/default.png
-├── waybar.jsonc
-├── tests/verify_install.py
-└── screenshots/            # Actual desktop and bar captures
+```bash
+curl -fsSL https://raw.githubusercontent.com/nihitdev/mangoWC-config/main/install.sh | bash -s -- --repo https://github.com/nihitdev/mangoWC-config.git
 ```
 
-`config.conf` sources the eight modules. Scripts retain the bundled themed workflows while keeping Mango-generated lock configuration and wallpaper state inside `~/.config/mango/`.
+**Clone → validate → install into `~/.config/mango/`.** Themes, scripts, and a wallpaper are included. No old Hyprland configuration is needed.
 
-## Everyday controls
+The installer reports missing applications; it does **not** install packages. It replaces this repo’s Mango files, preserves runtime state, and leaves other application configs alone.
+
+Log into **MangoWC**, or reload with **Super + Ctrl + Alt + R**.
+
+<details>
+<summary><b>Local install, updates & installer options</b></summary>
+
+```bash
+# From an existing clone:
+./install.sh --check
+./install.sh
+
+# Update that clone and reinstall:
+git pull --ff-only
+./install.sh
+
+# See all options:
+./install.sh --help
+```
+
+| Option | Purpose |
+| :--- | :--- |
+| `--check` | Validate without deploying; bootstrap still clones |
+| `--clone-dir PATH` | Choose the clone location; default `~/.local/share/mangoWC-config` |
+| `--branch NAME` | Choose a branch when cloning; default `main` |
+| `--repo URL` | Choose a repository; useful for forks |
+
+An existing clone directory is never reset or overwritten. Run its installer directly. `MANGO_REPO_URL`, `MANGO_BRANCH`, and `MANGO_CLONE_DIR` also set bootstrap defaults.
+
+Home paths are portable. The installer creates no backups and does not restart your desktop or bar.
+
+</details>
+
+---
+
+## Preview
+
+![ARCHNEMESIS desktop](screenshots/desktop.png)
+
+![ARCHNEMESIS top bar](screenshots/top-bar.png)
+
+Actual desktop captures, taken on an empty Center Tile tag. The default wallpaper is included.
+
+---
+
+## Desktop
+
+| Feature | Setup |
+| :--- | :--- |
+| Appearance | Dark Rosé Pine inspired palette; purple/pink accents |
+| Geometry | 4 px inner gaps · 8 px outer gaps · 2 px borders · 10 px corners |
+| Tags | 1–5 always visible; 6–10 appear when occupied or active |
+| Layout label | Full names; click to cycle, right-click for overview |
+| Workflows | Rofi launcher, clipboard, wallpapers, and power menu |
+| Notifications | SwayNC; existing service takes precedence |
+| Hardware | wpctl volume · brightnessctl · playerctl |
+
+### One key, seven layouts
+
+Press **Super + L** to cycle the current tag:
+
+```text
+Tile → Scroller → Center Tile → Grid → Deck → Monocle → Vertical Scroller
+ ↑__________________________________________________________________|
+```
+
+Open a few windows and try the cycle. Use the optional controls below to explore scroller widths, groups, overview, and scratchpads.
+
+---
+
+## Controls
+
+**Super** is your Windows/Meta key. Everyday shortcuts keep the Hyprland muscle memory.
+
+| Keys | Action |
+| :--- | :--- |
+| **Super + Return** | Kitty |
+| **Super + Space** | Rofi launcher |
+| **Super + B / E** | Helium / Dolphin |
+| **Super + W** | Close window |
+| **Super + arrows** | Focus movement |
+| **Super + L** | Cycle layouts |
+| **Super + 1…0** | Switch tags |
+| **Super + Shift + 1…0** | Move window and follow |
+| **Super + V** | Clipboard |
+| **Alt + Z / Print** | Region screenshot |
+| **Super + Alt + Space** | Wallpaper picker |
+| **Super + Alt + L** | Lock |
+
+<details>
+<summary><b>All everyday bindings</b></summary>
 
 | Keys | Action |
 | --- | --- |
 | Super + Return | Kitty |
 | Super + B | Helium browser |
 | Super + E | Dolphin |
-| Super + Space | Existing Rofi launcher |
+| Super + Space | Rofi launcher |
 | Super + G | Kdenlive |
 | Super + N | Neovim inside Kitty |
 | Super + W | Close focused window |
@@ -70,11 +144,14 @@ These are actual captures of the running desktop. The desktop screenshot uses an
 | Brightness keys | brightnessctl |
 | Media keys | playerctl |
 
-The power icon at the far right opens the bundled styled Rofi menu: lock, suspend, logout, reboot, and shutdown. Logout dispatches Mango’s `quit`; other session actions retain confirmation dialogs.
+The power button at the far right opens **lock · suspend · logout · reboot · shutdown**. Logout targets Mango; session actions other than locking request confirmation.
 
-## Optional Mango controls
+</details>
 
-Every shortcut below starts with **Super + Ctrl + Alt**. “Shift” means adding Shift to that same prefix.
+<details>
+<summary><b>Optional Mango controls — Super + Ctrl + Alt</b></summary>
+
+Every key below adds to **Super + Ctrl + Alt**. “Shift” adds Shift to that same prefix.
 
 | Additional key | Native action |
 | --- | --- |
@@ -99,66 +176,96 @@ Every shortcut below starts with **Super + Ctrl + Alt**. “Shift” means addin
 | Backtick | Named scratch Kitty |
 | R | Reload Mango configuration |
 
-Try opening several windows and pressing Super + L. Scroller offers horizontal columns; Center Tile puts the master in the middle; Deck and Monocle provide different stacking behaviors. Use the isolated shortcuts to try groups, overview, tag combinations, and scratchpads without changing the familiar controls.
+</details>
 
-## Bundled workflows and requirements
+---
 
-The configuration is self-contained: Rofi themes and helpers, clipboard integration, screenshot workflow, Waybar styling and helper scripts, lock template, SwayNC styling, battery notifications, and a default wallpaper are included. **Hyprland and pre-existing Rofi/Waybar/Hyprlock configs are not required.** Files install only inside `~/.config/mango/`.
+## Included
 
-Validated with **MangoWC 0.17.5** and **Waybar 0.15.0**. Waybar needs `ext/workspaces` support; full layout names use Mango IPC through `mmsg` and `jq`.
-
-Applications are separate dependencies: Kitty, Helium (`helium-browser`), Dolphin, Kdenlive, Neovim, Rofi with Wayland support, cliphist, wl-clipboard, grim, slurp, libnotify (`notify-send`), swaybg, Hyprlock, SwayNC, WirePlumber (`wpctl`), brightnessctl, playerctl, Bash, Python 3, and jq. Install those through your preferred package manager; the installer reports missing tools and does not install packages.
-
-Optional bar actions use btop, pulsemixer, nmtui, bluetui, cava, calcurse, and yazi. Battery notifications use `flock` and automatically find a laptop battery. Desktop/session actions assume systemd and a working user D-Bus session.
-
-For the original typography, install Iosevka/JetBrains Mono/Space Mono Nerd Fonts and an icon font with the displayed glyphs. The optional Waycat and Skulltype fonts enable the animated bar art; without them the helpers show a static cat/skull. Fonts, WhiteSur icons, Bibata-Modern-Ice cursors, and qt6ct/Kvantum are not redistributed. Missing fonts or icon/cursor themes may change the appearance but do not require your old app configurations.
-
-The wallpaper picker uses the existing `~/Pictures/Wallpapers/CozyPixels/Catppuccin/Space & Cosmic` collection when available, otherwise the bundled `~/.config/mango/wallpapers/`. Set `MANGO_WALLPAPER_DIR` in the session environment to use another directory. Startup and locking use the current Mango wallpaper or the bundled default. Add your own images to the bundled directory to expand the picker. The default artwork was copied from the existing wallpaper collection; no ownership of third-party artwork or fonts is claimed.
-
-Existing SwayNC services/processes take precedence. If neither is active, Mango starts SwayNC with its bundled configuration and style. Audio remains service-managed. Clipboard, Waybar, wallpaper, and battery startup avoid duplicate processes. No Hyprland-only daemons are started.
-
-## Automated installation
-
-With MangoWC, Python 3, Git, and curl already installed:
-
-```sh
-curl -fsSL https://raw.githubusercontent.com/nihitdev/mangoWC-config/main/install.sh | bash -s -- --repo https://github.com/nihitdev/mangoWC-config.git
+```text
+mangoWC-config/
+├── install.sh
+├── config.conf
+├── config/                 # Environment, programs, appearance, animations,
+│                           # layouts, input, bindings, autostart
+├── scripts/                # Launcher, clipboard, screenshot, lock, bar helpers
+├── themes/
+│   ├── rofi/
+│   ├── hyprlock.conf
+│   ├── waybar.css
+│   └── swaync/
+├── wallpapers/default.png
+├── waybar.jsonc
+├── screenshots/
+└── tests/verify_install.py
 ```
 
-The bootstrap clones the public repository into `~/.local/share/mangoWC-config`, enters it, and runs its installer. No home directory or OS username is hardcoded. Repository URLs identify this GitHub project; forks can supply their own URL with `--repo` or `MANGO_REPO_URL`.
+Everything deploys inside `~/.config/mango/`. Existing Rofi, Waybar, SwayNC, and Hyprlock configs stay untouched.
 
-Already cloned? Run:
+---
 
-```sh
+## Requirements
+
+Software packages and fonts are separate from the bundled configuration. Tested with **MangoWC 0.17.5** and **Waybar 0.15.0**; Waybar needs `ext/workspaces` support.
+
+<details>
+<summary><b>Applications & workflow tools</b></summary>
+
+| Used for | Tools |
+| :--- | :--- |
+| Applications | Kitty, Helium (`helium-browser`), Dolphin, Kdenlive, Neovim |
+| Menus & clipboard | Wayland-enabled Rofi, cliphist, wl-clipboard |
+| Screenshots | grim, slurp, libnotify (`notify-send`) |
+| Desktop | swaybg, Hyprlock, SwayNC, Waybar |
+| Audio & hardware | WirePlumber (`wpctl`), brightnessctl, playerctl |
+| Scripts & layout names | Bash, Python 3, jq, `mmsg` |
+| Optional bar actions | btop, pulsemixer, nmtui, bluetui, cava, calcurse, yazi |
+| Battery notifications | `flock`; battery detected automatically |
+
+Session actions assume systemd and a working user D-Bus session. Audio remains service-managed. Startup guards avoid duplicate clipboard watchers, bars, wallpaper renderers, notification daemons, and battery helpers.
+
+</details>
+
+<details>
+<summary><b>Fonts & appearance</b></summary>
+
+- **Typography:** Iosevka, JetBrains Mono, and Space Mono Nerd Fonts, plus icon glyph support.
+- **Animated bar art:** Waycat and Skulltype; static cat/skull fallback when unavailable.
+- **Optional theme assets:** WhiteSur icons, Bibata-Modern-Ice cursor, qt6ct/Kvantum.
+
+Fonts and these system themes are not redistributed. Their absence can change the appearance.
+
+</details>
+
+<details>
+<summary><b>Wallpaper settings</b></summary>
+
+The picker prefers the existing `~/Pictures/Wallpapers/CozyPixels/Catppuccin/Space & Cosmic` collection when present. Otherwise it uses `~/.config/mango/wallpapers/`.
+
+Add images to that directory, or set **`MANGO_WALLPAPER_DIR`** in your session environment. Startup and locking use the current Mango wallpaper, falling back to the bundled default.
+
+The default image comes from the original wallpaper collection; no ownership of third-party artwork or fonts is claimed.
+
+</details>
+
+---
+
+<details>
+<summary><b>Validation & tests</b></summary>
+
+```bash
 ./install.sh --check
-./install.sh
-```
-
-The installer stages and validates all Mango modules, checks Bash/Python syntax, bundled assets, and JSON, and reports missing applications. It then replaces only repository-owned files under `~/.config/mango/` and validates the installed configuration. Runtime wallpaper state and generated lock configuration remain in place. No backups or packages are created, and other application configs are untouched. ShellCheck runs when available.
-
-Missing applications are reported but do not prevent installation. Every configuration, helper, and theme used by these workflows is bundled; software packages and fonts remain separate dependencies. The backlight module lets Waybar discover the device rather than naming a particular laptop controller.
-
-Options:
-
-```sh
-./install.sh --help
-# Bootstrap into a different location:
-curl -fsSL https://raw.githubusercontent.com/nihitdev/mangoWC-config/main/install.sh | bash -s -- --repo https://github.com/nihitdev/mangoWC-config.git --clone-dir "$HOME/Projects/mangoWC-config"
-```
-
-`--branch` selects a branch when cloning; it defaults to `main`. `--check` skips deployment (bootstrap still clones). Existing clone destinations are never overwritten or reset: rerun their `./install.sh` directly, and use Git to update them when desired. Run as your desktop user. The installer deploys to `~/.config/mango`, matching the home-relative configuration and bundled workflows.
-
-Log into Mango after installation, or press **Super + Ctrl + Alt + R** inside Mango to reload. The installer does not restart your current desktop or bar.
-
-## Validate
-
-```sh
-mango -c ~/.config/mango/config.conf -p
-bash -n install.sh
-for script in scripts/*.sh; do bash -n "$script"; done
-shellcheck install.sh scripts/*.sh scripts/cliphist-rofi
-jq empty waybar.jsonc
 python3 tests/verify_install.py
 ```
 
-Keep `-c` before `-p`: Mango’s parse check uses the configuration selected at that point. The parser check does not verify that application packages or services exist. Runtime wallpaper links and generated lock configuration are excluded from Git.
+The installer checks Mango modules, bundled assets, Bash/Python syntax, and JSON. It runs ShellCheck when available. The standalone test exercises installation and workflows in a fresh home directory, using stubs to avoid opening menus or triggering session actions.
+
+To check the installed compositor config directly:
+
+```bash
+mango -c ~/.config/mango/config.conf -p
+```
+
+Keep `-c` before `-p`. A parser check does not verify installed applications or services. Generated lock configuration and the current wallpaper link are excluded from Git.
+
+</details>
