@@ -20,7 +20,7 @@
     0 1px 3px 1px rgba(0, 0, 0, 0.7), 0 2px 6px 2px rgba(0, 0, 0, 0.3);
   --font-size-body: 15px;
   --font-size-summary: 16px;
-  
+
   --hover-tranistion: background 0.15s ease-in-out;
   --group-collapse-tranistion: opacity 400ms ease-in-out;
   --hover-transition: var(--hover-tranistion);
@@ -47,7 +47,7 @@ notificationwindow, blankwindow {
 }
 
 .close-button {
-  
+
   background: var(--noti-close-bg);
   color: var(--text-color);
   text-shadow: none;
@@ -82,7 +82,7 @@ notificationwindow, blankwindow {
 }
 
 .notification-row .notification-background .notification {
-  
+
   border-radius: var(--border-radius);
   border: var(--border);
   padding: 0;
@@ -91,19 +91,19 @@ notificationwindow, blankwindow {
 }
 
 .notification-row .notification-background .notification.low {
-  
+
 }
 
 .notification-row .notification-background .notification.normal {
-  
+
 }
 
 .notification-row .notification-background .notification.critical {
-  
+
 }
 
 .notification-row .notification-background .notification .notification-default-action {
-  
+
   padding: 4px;
   margin: 0;
   box-shadow: none;
@@ -120,7 +120,7 @@ notificationwindow, blankwindow {
 }
 
 .notification-row .notification-background .notification .notification-default-action:not(:only-child) {
-  
+
   border-bottom-left-radius: 0px;
   border-bottom-right-radius: 0px;
 }
@@ -132,16 +132,16 @@ notificationwindow, blankwindow {
 }
 
 .notification-row .notification-background .notification .notification-default-action .notification-content .image {
-  
+
   -gtk-icon-filter: none;
   -gtk-icon-size: var(--notification-icon-size);
   border-radius: 100px;
-  
+
   margin: 4px;
 }
 
 .notification-row .notification-background .notification .notification-default-action .notification-content .app-icon {
-  
+
   -gtk-icon-filter: none;
   -gtk-icon-size: var(--notification-app-icon-size);
   -gtk-icon-shadow: 0 1px 4px black;
@@ -149,12 +149,12 @@ notificationwindow, blankwindow {
 }
 
 .notification-row .notification-background .notification .notification-default-action .notification-content .text-box label {
-  
+
   filter: none;
 }
 
 .notification-row .notification-background .notification .notification-default-action .notification-content .text-box .summary {
-  
+
   font-size: var(--font-size-summary);
   font-weight: bold;
   background: transparent;
@@ -163,7 +163,7 @@ notificationwindow, blankwindow {
 }
 
 .notification-row .notification-background .notification .notification-default-action .notification-content .text-box .time {
-  
+
   font-size: var(--font-size-summary);
   font-weight: bold;
   background: transparent;
@@ -173,7 +173,7 @@ notificationwindow, blankwindow {
 }
 
 .notification-row .notification-background .notification .notification-default-action .notification-content .text-box .body {
-  
+
   font-size: var(--font-size-body);
   font-weight: normal;
   background: transparent;
@@ -182,19 +182,19 @@ notificationwindow, blankwindow {
 }
 
 .notification-row .notification-background .notification .notification-default-action .notification-content progressbar {
-  
+
   margin-top: 4px;
 }
 
 .notification-row .notification-background .notification .notification-default-action .notification-content .body-image {
-  
+
   margin-top: 4px;
   background-color: white;
   -gtk-icon-filter: none;
 }
 
 .notification-row .notification-background .notification .notification-default-action .notification-content .inline-reply {
-  
+
   margin-top: 4px;
 }
 
@@ -233,7 +233,7 @@ notificationwindow, blankwindow {
 }
 
 .notification-row .notification-background .notification .notification-action {
-  
+
   margin: 4px;
   padding: 0;
 }
@@ -244,9 +244,9 @@ notificationwindow, blankwindow {
 }
 
 .notification-group {
-  
+
   transition: opacity 200ms ease-in-out;
-  
+
 }
 
 .notification-group:focus {
@@ -254,15 +254,15 @@ notificationwindow, blankwindow {
 }
 
 .notification-group.low {
-  
+
 }
 
 .notification-group.normal {
-  
+
 }
 
 .notification-group.critical {
-  
+
 }
 
 .notification-group .notification-group-close-button .close-button {
@@ -275,7 +275,7 @@ notificationwindow, blankwindow {
 }
 
 .notification-group .notification-group-headers {
-  
+
 }
 
 .notification-group .notification-group-headers .notification-group-icon {
@@ -288,11 +288,11 @@ notificationwindow, blankwindow {
 }
 
 .notification-group .notification-group-buttons {
-  
+
 }
 
 .notification-group.collapsed {
-  
+
 }
 
 .notification-group.collapsed.not-expanded {
@@ -304,8 +304,8 @@ notificationwindow, blankwindow {
 }
 
 .notification-group.collapsed .notification-row:not(:last-child) {
-  
-  
+
+
 }
 
 .notification-group.collapsed .notification-row:not(:last-child) .notification-action,
@@ -318,19 +318,19 @@ notificationwindow, blankwindow {
 }
 
 .control-center {
-  
+
   background: var(--cc-bg);
   color: var(--text-color);
   border-radius: var(--border-radius);
 }
 
 .control-center .control-center-list-placeholder {
-  
+
   opacity: 0.5;
 }
 
 .control-center .control-center-list {
-  
+
   background: transparent;
 }
 
@@ -349,7 +349,7 @@ notificationwindow, blankwindow {
 }
 
 .blank-window {
-  
+
   background: transparent;
 }
 
@@ -410,7 +410,7 @@ notificationwindow, blankwindow {
 
 .widget-mpris {
   padding: 0;
-  
+
 }
 
 .widget-mpris .widget-mpris-player {
@@ -429,7 +429,7 @@ notificationwindow, blankwindow {
 }
 
 .widget-mpris .widget-mpris-player .mpris-overlay button:hover {
-  
+
   background: var(--noti-bg-hover);
 }
 
@@ -449,7 +449,7 @@ notificationwindow, blankwindow {
 }
 
 .widget-mpris .widget-mpris-player .mpris-overlay > box > button {
-  
+
 }
 
 .widget-mpris .widget-mpris-player .mpris-overlay > box > button:hover {
@@ -457,11 +457,11 @@ notificationwindow, blankwindow {
 }
 
 .widget-mpris > box > button {
-  
+
 }
 
 .widget-mpris > box > button:disabled {
-  
+
 }
 
 
@@ -470,19 +470,19 @@ notificationwindow, blankwindow {
 }
 
 .widget-buttons-grid flowboxchild > button.toggle:checked {
-  
+
 }
 
 
 .widget-menubar {
-  
-  
+
+
 }
 
 .widget-menubar > .menu-button-bar {
-  
-  
-  
+
+
+
 }
 
 .widget-menubar > .menu-button-bar > .start {

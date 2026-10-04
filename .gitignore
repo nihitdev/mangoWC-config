@@ -1,3 +1,4 @@
-current-wallpaper
-hyprlock.conf
+/current-wallpaper
+/hyprlock.conf
 *.log
+__pycache__/

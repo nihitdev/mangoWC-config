@@ -17,7 +17,7 @@ configuration {
 
 
 window {
-    
+
     transparency:                "real";
     location:                    east;
     anchor:                      east;
@@ -26,7 +26,7 @@ window {
     x-offset:                    -15px;
     y-offset:                    0px;
 
-    
+
     enabled:                     true;
     margin:                      0px;
     padding:                     0px;
@@ -126,7 +126,7 @@ listview {
     reverse:                     false;
     fixed-height:                true;
     fixed-columns:               true;
-    
+
     spacing:                     15px;
     margin:                      0px;
     padding:                     0px;
