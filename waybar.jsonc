@@ -77,7 +77,6 @@
     "tooltip-format": "{node_name}\nClick: mixer \u00b7 Right-click: mute \u00b7 Scroll: volume"
   },
   "backlight": {
-    "device": "intel_backlight",
     "format": "\udb80\udce0  {percent}%",
     "tooltip": true,
     "on-scroll-up": "brightnessctl set +5%",

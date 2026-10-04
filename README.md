@@ -24,6 +24,7 @@ These are actual captures of the running desktop. The desktop screenshot uses an
 
 ```text
 .
+├── install.sh
 ├── config.conf
 ├── config/
 │   ├── env.conf
@@ -108,7 +109,7 @@ Try opening several windows and pressing Super + L. Scroller offers horizontal c
 
 ## Requirements and existing integrations
 
-This is a snapshot of a personal setup, **not a standalone dotfiles distribution**. It preserves the current machine’s paths and reuses configurations outside this repository.
+This is a snapshot of a personal setup, **not a standalone dotfiles distribution**. It uses home-relative paths and reuses configurations outside this repository.
 
 Validated with **MangoWC 0.17.5** and **Waybar 0.15.0**. Waybar needs `ext/workspaces` support; layout names use Mango IPC through `mmsg` and `jq`.
 
@@ -129,24 +130,46 @@ The wallpaper picker reads `~/Pictures/Wallpapers/CozyPixels/Catppuccin/Space & 
 
 SwayNC and audio are managed by existing services. Clipboard startup is guarded against an active service or watcher; Waybar, swaybg, and battery-guardian startup are also guarded. Hypridle is omitted because its existing hooks target Hyprland.
 
-## Use on the original machine
+## Automated installation
 
-The repository mirrors `~/.config/mango/`; it is not loaded directly from the project directory. To deploy it deliberately:
+With MangoWC, Python 3, Git, and curl already installed:
 
 ```sh
-mkdir -p ~/.config/mango
-cp -r config scripts config.conf waybar.jsonc ~/.config/mango/
-mango -c ~/.config/mango/config.conf -p
+curl -fsSL https://raw.githubusercontent.com/nihitdev/mangoWC-config/main/install.sh | bash -s -- --repo https://github.com/nihitdev/mangoWC-config.git
 ```
 
-This replaces the corresponding Mango files. On another machine, update the absolute `/home/zei/.config/mango/` source paths in `config.conf`, supply or adapt the external integrations above, and adjust hardware-specific settings such as `intel_backlight`. No package installation or changes to other application configurations are automated.
+The bootstrap clones the public repository into `~/.local/share/mangoWC-config`, enters it, and runs its installer. No home directory or OS username is hardcoded. Repository URLs identify this GitHub project; forks can supply their own URL with `--repo` or `MANGO_REPO_URL`.
+
+Already cloned? Run:
+
+```sh
+./install.sh --check
+./install.sh
+```
+
+The installer stages and validates all Mango modules, checks script syntax and JSON, and reports missing applications or existing integrations. It then replaces only repository-owned files under `~/.config/mango/` and validates the installed configuration. Runtime wallpaper state and generated lock configuration remain in place. No backups or packages are created, and other application configs are untouched. ShellCheck runs when available.
+
+Missing external tools or themes are reported but do not prevent installation: this repository does not bundle the Rofi, Waybar, Hyprlock, or screenshot integrations listed above. The backlight module lets Waybar discover the device rather than naming a particular laptop controller.
+
+Options:
+
+```sh
+./install.sh --help
+# Bootstrap into a different location:
+curl -fsSL https://raw.githubusercontent.com/nihitdev/mangoWC-config/main/install.sh | bash -s -- --repo https://github.com/nihitdev/mangoWC-config.git --clone-dir "$HOME/Projects/mangoWC-config"
+```
+
+`--branch` selects a branch when cloning; it defaults to `main`. `--check` skips deployment (bootstrap still clones). Existing clone destinations are never overwritten or reset: rerun their `./install.sh` directly, and use Git to update them when desired. Run as your desktop user. The installer deploys to `~/.config/mango`, matching the home-relative configuration and existing workflows.
+
+Log into Mango after installation, or press **Super + Ctrl + Alt + R** inside Mango to reload. The installer does not restart your current desktop or bar.
 
 ## Validate
 
 ```sh
 mango -c ~/.config/mango/config.conf -p
-bash -n scripts/*.sh
-shellcheck scripts/*.sh
+bash -n install.sh
+for script in scripts/*.sh; do bash -n "$script"; done
+shellcheck install.sh scripts/*.sh
 jq empty waybar.jsonc
 ```
 
