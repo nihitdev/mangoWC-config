@@ -1,9 +1,10 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-WALLDIR="$HOME/Pictures/Wallpapers/CozyPixels/Catppuccin/Space & Cosmic"
+WALLDIR="${MANGO_WALLPAPER_DIR:-$HOME/Pictures/Wallpapers/CozyPixels/Catppuccin/Space & Cosmic}"
+[[ -d "$WALLDIR" ]] || WALLDIR="$HOME/.config/mango/wallpapers"
 CURRENT="$HOME/.config/mango/current-wallpaper"
-THEME="$HOME/.config/rofi/wallpaper/wallpaper.rasi"
+THEME="$HOME/.config/mango/themes/rofi/wallpaper.rasi"
 
 [[ -d "$WALLDIR" ]] || {
     notify-send -a Wallpaper "Wallpaper directory not found" "$WALLDIR"
@@ -28,7 +29,7 @@ selection="$(
     for wall in "${walls[@]}"; do
         printf '%s\0icon\x1f%s\n' "$(basename "$wall")" "$wall"
     done |
-        rofi -dmenu \
+        rofi -no-config -dmenu \
             -i \
             -show-icons \
             -p "󰸉  Wallpaper" \

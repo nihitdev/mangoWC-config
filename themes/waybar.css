@@ -1,0 +1,100 @@
+@define-color text #e0def4;
+@define-color muted #908caa;
+@define-color iris #c4a7e7;
+@define-color foam #9ccfd8;
+@define-color gold #f6c177;
+@define-color love #eb6f92;
+
+* {
+    font-family: "Iosevka Nerd Font Mono", monospace;
+    font-size: 13px;
+    font-weight: 600;
+    min-height: 0;
+    border: none;
+    text-shadow: none;
+}
+window#waybar {
+    background: rgba(20, 18, 33, 0.68);
+    color: @text;
+    border: 1px solid rgba(196, 167, 231, 0.20);
+    border-radius: 10px;
+}
+#workspaces { margin-left: 5px; }
+#workspaces button {
+    min-width: 20px;
+    padding: 0 6px;
+    margin: 4px 2px;
+    border-radius: 6px;
+    background: transparent;
+    color: @muted;
+    box-shadow: none;
+    transition: background-color 160ms ease, color 160ms ease;
+}
+#workspaces button:hover {
+    background: rgba(156, 207, 216, 0.13);
+    color: @foam;
+}
+#workspaces button.active {
+    background: rgba(196, 167, 231, 0.22);
+    color: @iris;
+    box-shadow: inset 0 -2px @iris;
+}
+#workspaces button.urgent {
+    background: rgba(235, 111, 146, 0.22);
+    color: @love;
+}
+#custom-layout, #mpris, #custom-network, #custom-bluetooth,
+#wireplumber, #backlight, #battery, #clock, #custom-notifications, #custom-power {
+    padding: 0 8px;
+    margin: 4px 1px;
+    border-radius: 6px;
+    background: rgba(38, 35, 58, 0.36);
+    transition: background-color 160ms ease, color 160ms ease;
+}
+#custom-layout:hover, #mpris:hover, #custom-network:hover, #custom-bluetooth:hover,
+#wireplumber:hover, #backlight:hover, #battery:hover, #clock:hover,
+#custom-notifications:hover, #custom-power:hover {
+    background: rgba(196, 167, 231, 0.18);
+    color: @text;
+}
+#connectivity, #system {
+    margin: 4px 2px;
+    border-radius: 6px;
+    background: rgba(38, 35, 58, 0.36);
+}
+#connectivity > widget > *, #system > widget > * {
+    margin: 0;
+    background: transparent;
+}
+#connectivity > widget > *:hover, #system > widget > *:hover {
+    background: rgba(196, 167, 231, 0.18);
+}
+#custom-layout, #wireplumber, #clock, #custom-notifications { color: @iris; }
+#mpris, #custom-network, #custom-bluetooth, #battery { color: @foam; }
+#backlight, #battery.warning { color: @gold; }
+#battery.critical:not(.charging) { color: @love; }
+#wireplumber.muted, #mpris.paused,
+#custom-notifications.dnd-none, #custom-notifications.dnd-notification { color: @muted; }
+#custom-power { color: @love; margin-right: 5px; }
+#custom-cpucat {
+    font-family: "Waycat";
+    font-size: 20px;
+    font-weight: normal;
+    color: @text;
+    min-width: 24px;
+    padding: 0 5px;
+}
+#custom-skull {
+    font-family: "Skulltype";
+    font-size: 21px;
+    font-weight: normal;
+    color: @iris;
+    min-width: 28px;
+    padding: 0 8px;
+}
+tooltip {
+    background: rgba(25, 23, 36, 0.96);
+    border: 1px solid rgba(196, 167, 231, 0.28);
+    border-radius: 8px;
+}
+tooltip label { color: @text; padding: 6px; font-size: 12px; font-weight: 400; }

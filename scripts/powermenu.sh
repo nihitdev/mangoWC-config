@@ -1,8 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-DIR="$HOME/.config/rofi/powermenu/type-2"
-THEME="$DIR/style-5.rasi"
+THEME="$HOME/.config/mango/themes/rofi/power.rasi"
 
 shutdown=''
 reboot=''
@@ -17,7 +16,7 @@ uptime="$(uptime -p | sed 's/^up //')"
 
 choice="$(
     printf '%s\n' "$lock" "$suspend" "$logout" "$reboot" "$shutdown" |
-        rofi -dmenu \
+        rofi -no-config -dmenu \
             -p "Uptime: $uptime" \
             -mesg "A R C H N E M E S I S" \
             -theme "$THEME"
@@ -30,7 +29,7 @@ case "$choice" in
     "$suspend"|"$logout"|"$reboot"|"$shutdown")
         confirm="$(
             printf '%s\n' "$yes" "$no" |
-                rofi -dmenu \
+                rofi -no-config -dmenu \
                     -p "Confirmation" \
                     -mesg "Are you sure?" \
                     -theme "$THEME" \

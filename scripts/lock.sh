@@ -3,9 +3,8 @@ set -euo pipefail
 
 MANGO="$HOME/.config/mango"
 CURRENT="$MANGO/current-wallpaper"
-CACHE="$HOME/.cache/current-wallpaper"
-FALLBACK="$HOME/.config/hypr/current-wallpaper"
-TEMPLATE="$HOME/.config/hyprlock/hyprlock.template.conf"
+FALLBACK="$MANGO/wallpapers/default.png"
+TEMPLATE="$HOME/.config/mango/themes/hyprlock.conf"
 CONFIG="$MANGO/hyprlock.conf"
 
 pgrep -u "$(id -u)" -x hyprlock >/dev/null && exit 0
@@ -13,8 +12,6 @@ pgrep -u "$(id -u)" -x hyprlock >/dev/null && exit 0
 wall=""
 if [[ -f "$CURRENT" ]]; then
     wall="$(realpath -- "$CURRENT")"
-elif [[ -r "$CACHE" ]]; then
-    IFS= read -r wall < "$CACHE" || true
 fi
 if [[ ! -f "$wall" && -f "$FALLBACK" ]]; then
     wall="$(realpath -- "$FALLBACK")"

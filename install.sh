@@ -51,15 +51,29 @@ target="$HOME/.config/mango"
 [[ "$source_dir" != "$target" ]] || { printf 'Run the installer from the repository, not the live config directory.\n' >&2; exit 1; }
 stage="$(mktemp -d)"
 trap 'rm -rf -- "$stage"' EXIT
-cp -R -- "$source_dir/config" "$source_dir/scripts" "$stage/"
+cp -R -- "$source_dir/config" "$source_dir/scripts" "$source_dir/themes" "$source_dir/wallpapers" "$stage/"
 cp -- "$source_dir/config.conf" "$source_dir/waybar.jsonc" "$stage/"
 
-for script in "$stage"/scripts/*.sh; do bash -n "$script"; done
-if command -v shellcheck >/dev/null; then shellcheck "$stage"/scripts/*.sh; fi
+for script in "$stage"/scripts/*.sh "$stage/scripts/cliphist-rofi"; do bash -n "$script"; done
+if command -v shellcheck >/dev/null; then shellcheck "$stage"/scripts/*.sh "$stage/scripts/cliphist-rofi"; fi
 python3 - "$stage" <<'PY'
 import json, pathlib, sys
 root = pathlib.Path(sys.argv[1])
 json.loads((root / 'waybar.jsonc').read_text())
+json.loads((root / 'themes/swaync/config.json').read_text())
+for script in (root / 'scripts').glob('*.py'):
+    compile(script.read_text(), str(script), 'exec')
+required = ['themes/rofi/launcher.rasi', 'themes/rofi/wallpaper.rasi',
+            'themes/rofi/power.rasi', 'themes/waybar.css', 'themes/hyprlock.conf',
+            'themes/swaync/style.css', 'wallpapers/default.png',
+            'scripts/launcher.sh', 'scripts/clipboard.sh', 'scripts/cliphist-rofi',
+            'scripts/screenshot.sh', 'scripts/lock.sh', 'scripts/powermenu.sh',
+            'scripts/wallpaper-picker.sh', 'scripts/art-animation.py',
+            'scripts/skull.sh', 'scripts/catloop.sh', 'scripts/tui.sh',
+            'scripts/notifications.sh', 'scripts/battery-guardian.sh']
+for relative in required:
+    if not (root / relative).is_file():
+        raise SystemExit(f'Missing bundled asset: {relative}')
 modules = ['env', 'programs', 'appearance', 'animations', 'layouts', 'input', 'binds', 'autostart']
 with (root / 'check.conf').open('w') as file:
     for module in modules:
@@ -74,32 +88,25 @@ PY
 mango -c "$stage/check.conf" -p
 
 missing=0
-for tool in kitty helium-browser dolphin kdenlive nvim rofi cliphist wl-paste wl-copy grim slurp notify-send swaybg hyprlock swaync-client wpctl brightnessctl playerctl waybar mmsg jq; do
+for tool in kitty helium-browser dolphin kdenlive nvim rofi cliphist wl-paste wl-copy grim slurp notify-send swaybg hyprlock swaync swaync-client wpctl brightnessctl playerctl waybar mmsg jq; do
     if ! command -v "$tool" >/dev/null; then
         printf 'Workflow dependency missing: %s\n' "$tool" >&2
         missing=1
     fi
 done
-for relative in rofi/launchers/launcher.sh rofi/clipboard/clipboard.sh rofi/wallpaper/wallpaper.rasi rofi/powermenu/type-2/style-5.rasi hypr/scripts/screenshot.sh hyprlock/hyprlock.template.conf waybar/style.css waybar/scripts/skull.sh waybar/scripts/catloop.sh waybar/scripts/tui.sh waybar/scripts/notifications.sh; do
-    if [[ ! -r "$HOME/.config/$relative" ]]; then
-        printf 'Existing integration missing: ~/.config/%s\n' "$relative" >&2
-        missing=1
+for tool in btop pulsemixer nmtui bluetui cava calcurse yazi flock fc-match; do
+    if ! command -v "$tool" >/dev/null; then
+        printf 'Optional bar/helper tool missing: %s\n' "$tool" >&2
     fi
 done
-if [[ ! -x "$HOME/.local/bin/battery-guardian" ]]; then
-    printf 'Optional battery helper missing: ~/.local/bin/battery-guardian\n' >&2
-fi
-((missing == 0)) || printf 'Config validation passed; listed workflows need their existing tools/themes. See README.\n' >&2
+((missing == 0)) || printf 'Bundled configuration is valid; listed applications still need to be installed. No packages are installed automatically.\n' >&2
 if ((check)); then
     printf 'Checks passed; no configuration installed.\n'
     exit 0
 fi
 
-mkdir -p -- "$target/config" "$target/scripts"
-for file in "$stage"/config/*.conf "$stage"/scripts/*.sh; do
-    relative="${file#"$stage/"}"
-    cp -- "$file" "$target/$relative"
-done
+mkdir -p -- "$target"
+cp -R -- "$stage/config" "$stage/scripts" "$stage/themes" "$stage/wallpapers" "$target/"
 cp -- "$stage/config.conf" "$stage/waybar.jsonc" "$target/"
 mango -c "$target/config.conf" -p
 printf 'Installed and validated: %s\nNo packages installed; other app configs unchanged.\nLog into Mango or use Super+Ctrl+Alt+R to reload.\n' "$target"
