@@ -8,6 +8,7 @@
 ![Waybar](https://img.shields.io/badge/Waybar-0.15.0-9ccfd8?style=flat-square&labelColor=191724)
 ![Palette](https://img.shields.io/badge/Palette-Ros%C3%A9_Pine-eb6f92?style=flat-square&labelColor=191724)
 ![Installer](https://img.shields.io/badge/Installer-Bash-a6da95?style=flat-square&labelColor=191724)
+[![License: MIT](https://img.shields.io/badge/License-MIT-f6c177?style=flat-square&labelColor=191724)](LICENSE)
 
 Compact gaps · Rounded borders · Seven native layouts · Familiar shortcuts
 
@@ -269,3 +270,11 @@ mango -c ~/.config/mango/config.conf -p
 Keep `-c` before `-p`. A parser check does not verify installed applications or services. Generated lock configuration and the current wallpaper link are excluded from Git.
 
 </details>
+
+---
+
+## License
+
+Original code, configuration, and documentation are licensed under [MIT](LICENSE). Reuse and modification are welcome; retain the copyright and license notice.
+
+Third-party artwork, screenshot artwork, and any third-party theme material remain subject to their original authors’ rights and licenses. The MIT license does not grant rights to those materials.
